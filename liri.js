@@ -1,4 +1,4 @@
-//npm packages
+
 require("dotenv").config();
 const keys = require('./keys');
 const Spotify = require ('node-spotify-api');
@@ -12,18 +12,20 @@ var nodeArgs = process.argv;
 var userInput = "";
 var nextUserInput = "";
 
-for (var i = 3; i < nodeArgs.length; i++) {
+var i = 3; 
+while (i < nodeArgs.length)
+{ i++
+    }
 
   
     if (i > 3 && i < nodeArgs.length) {
-        userInput = userInput + "%20" + nodeArgs[i];
+        userInput = userInput + "%20"+ nodeArgs[i];
     }
     
     else {
-        userInput += nodeArgs[i];
     }
-    console.log(userInput);
-}
+    console.log(userInput)
+
 
 for (var i = 3; i < nodeArgs.length; i++) {
     nextUserInput = userInput.replace(/%20/g, " ");
@@ -32,62 +34,70 @@ for (var i = 3; i < nodeArgs.length; i++) {
 var userCommand = process.argv[2];
 console.log(userCommand);
 console.log(process.argv);
-runLiri();
-function runLiri() {
+Liri();
+function Liri() 
+
     switch (userCommand) {
         case "concert-this":
 
-            fs.appendFileSync("log.txt", nextUserInput + "\n----------------\n", function (error) {
-                if (error) {
-                    console.log(error);
+            fs.appendFile("log.txt", nextUserInput + "\n----------------\n", function (errs) {
+                if (err) {
+                    console.log("something is not quite right");
                 };
             });
 
             
             var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
             request(queryURL, function (error, response, body) {
-                if (!error && response.statusCode === 200) {
-                    var data = JSON.parse(body);
-                    for (var i = 0; i < data.length; i++) {
-                        console.log("Venue: " + data[i].venue.name);
+                if (error) {
+                    console.log("something not right");
+                    var dataInfo = JSON.parse(body);
+                    for (var i = 0; i < DataInfo.length; i++) {
+                        console.log("Venue: " + DataInfo[i].venue.name);
                       
-                        fs.appendFileSync("log.txt", "Venue: " + data[i].venue.name + "\n", function (error) {
-                            if (error) {
-                                console.log(error);
+                        fs.appendFile("log.txt", "Venue: " + DataInfo[i].venue.name + "\n", function (error) {
+                            if (err) {
+                                console.log("something not right");
                             };
                         });
-                        if (data[i].venue.region == "") {
-                            console.log("Location: " + data[i].venue.city + ", " + data[i].venue.country);
-                            fs.appendFileSync("log.txt", "Location: " + data[i].venue.city + ", " + data[i].venue.country + "\n", function (error) {
+                        if (DataInfo[i].venue.region == "") {
+                            console.log("City: " + DataInfo[i].venue.city)
+                            Console.log ("Country" + DataInfo[i].venue.country)
+                            fs.appendFile("log.txt", "Location: " + DataInfo[i].venue.city)
+                            fs.appendFile("log.txt", "Country" + DataInfo[i].venue.country)
+                        , function (error) {
                                 if (error) {
                                     console.log(error);
                                 };
-                            });
+                            
 
-                        } else {
-                            console.log("Location: " + data[i].venue.city + ", " + data[i].venue.region + ", " + data[i].venue.country);
-                            fs.appendFileSync("log.txt", "Location: " + data[i].venue.city + ", " + data[i].venue.region + ", " + data[i].venue.country + "\n", function (error) {
-                                if (error) {
-                                    console.log(error);
-                                };
-                            });
-                        }
+                        
+                        {
+                            console.log("City: " + DataInfo[i].venue.city);
+                             console.log("Region" + DataInfo[i].venue.region);
+                             console.log("Country" + DataInfo[i].venue.country);
+                            fs.appendFile("log.txt", "Location: " + DataInfo[i].venue.city);
+                            fs.appendFile("log.txt",  " region" + DataInfo[i].venue.region);
+                            fs.appendFile("log.txt" , "Country:" + DataInfo[i].venue.country); 
+                             
 
-                        var date = data[i].datetime;
+                        var date = DataInfo[i].datetime;
                         date = moment(date).format("MM/DD/YYYY");
                         console.log("Date: " + date)
-                        fs.appendFileSync("log.txt", "Date: " + date + "\n----------------\n", function (error) {
-                            if (error) {
-                                console.log(error);
+                        fs.appendFile("log.txt", "Date: " + date)
+                        console.log("---------------")
+                        , function (err) {
+                            if (err) {
+                                console.log("something is not right");
                             };
-                        });
+                        }
                         console.log("----------------")
                     }
-                }
-            });
+                
+            
 
             break;
-        case "spotify-this-song":
+        "spotify-this-song:"
         console.log("here");
             if (!userInput) {
                 userInput = "The%20Sign";
@@ -96,95 +106,96 @@ function runLiri() {
             }
 
 
-            fs.appendFileSync("log.txt", nextUserInput + "\n----------------\n", function (error) {
-                if (error) {
-                    console.log(error);
+            fs.appendFileSync("log.txt", nextUserInput + "\n----------------\n",
+             function (err) {
+                if (err) {
+                    console.log("something is not right");
                 };
-            });
+            })
 
             console.log(spotify);
             spotify.search({
 
                 type: "track",
                 query: userInput
-            }, function (err, data) {
+            }, 
+            function (err, DataInfo) {
                 if (err) {
-                    console.log("Error occured: " + err)
+                    console.log("Error")
                 }
-                var info = data.tracks.items
+                var DataInfo = DataInfo.tracks.items
   
-                for (var i = 0; i < info.length; i++) {
-                    var albumObject = info[i].album;
-                    var trackName = info[i].name
-                    var preview = info[i].preview_url
-                    var artistsInfo = albumObject.artists
-                    for (var j = 0; j < artistsInfo.length; j++) {
-                        console.log("Artist: " + artistsInfo[j].name)
+                i = 0; 
+                while (i < DataInfo.length)
+                { i++;}
+                 {
+                    let albumObject = DataInfo[i].album;
+                    let trackName = DataInfo[i].name
+                    let preview = DataInfo[i].preview_url
+                    let artistsDataInfo = albumObject.artists
+                      e = 0; 
+                      while (e < artistsDataInfo.length)
+                       (e++) 
+                        {
+                        console.log("Artist: " + artistsDataInfo[e].name)
                         console.log("Song Name: " + trackName)
                         console.log("Preview of Song: " + preview)
                         console.log("Album Name: " + albumObject.name)
                         console.log("----------------")
-                        fs.appendFileSync("log.txt", "Artist: " + artistsInfo[j].name + "\nSong Name: " + trackName + "\nPreview of Song: " + preview + "\nAlbum Name: " + albumObject.name + "\n----------------\n", function (error) {
-                            if (error) {
-                                console.log(error);
-                            };
-                        });
-                    }
-                }
-            })
-
-            break;
-        case "movie-this":
+                        fs.appendFile("log.txt", "Artist: " + artistsDataInfo[e].name)
+                        fs.appendFile("log.txt", "Song Name:: " + trackName)
+                        fs.appendFile("log.txt", "Artist: " + preview) 
+                        fs.appendFile("log.txt", "Artist: " + albumObject.name)
+                        fs.appendFile("log.txt", "Artist: " + artistsDataInfo[j].name)
+             "movie-this:"
+             //some code used from devans1913
             if (!userInput) {
                 userInput = "Mr%20Nobody";
                 nextUserInput = userInput.replace(/%20/g, " ");
             }
 
-            fs.appendFileSync("log.txt", nextUserInput + "\n----------------\n", function (error) {
-                if (error) {
-                    console.log(error);
+            fs.appendFile("log.txt", nextUserInput)
+            console.log("\n----------------\n"), 
+            function (err) {
+                if (err) {
+                    console.log("something not quite right");
                 };
-            });
+            
 
-            var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy"
+         var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy"
             request(queryURL, function (error, response, body) {
                 if (!error && response.statusCode === 200) {
-                    var info = JSON.parse(body);
-                    console.log("Title: " + info.Title)
-                    console.log("Release Year: " + info.Year)
-                    console.log("OMDB Rating: " + info.Ratings[0].Value)
-                    console.log("Rating: " + info.Ratings[1].Value)
-                    console.log("Country: " + info.Country)
-                    console.log("Language: " + info.Language)
-                    console.log("Plot: " + info.Plot)
-                    console.log("Actors: " + info.Actors)
+                    var DataInfo = JSON.parse(body);
+                    console.log("Title: " + DataInfo.Title)
+                    console.log("Release Year: " + DataInfo.Year)
+                    console.log("OMDB Rating: " + DataInfo.Ratings[0].Value)
+                    console.log("Rating: " + DataInfo.Ratings[1].Value)
+                    console.log("Country: " + DataInfo.Country)
+                    console.log("Language: " + DataInfo.Language)
+                    console.log("Plot: " + DataInfo.Plot)
+                    console.log("Actors: " + DataInfo.Actors)
 
-                    fs.appendFileSync("log.txt", "Title: " + info.Title + "\nRelease Year: " + info.Year + "\nIMDB Rating: " + info.Ratings[0].Value + "\nRating: " +
-                        info.Ratings[1].Value + "\nCountry: " + info.Country + "\nLanguage: " + info.Language + "\nPlot: " + info.Plot + "\nActors: " + info.Actors + "\n----------------\n",
-                        function (error) {
-                            if (error) {
-                                console.log(error);
-                            };
-                        });
+                    fs.appendFile("log.txt", "Title: " + DataInfo.year);
+                    fs.appendFile("log.txt", "Title: " + DataInfo.Ratings);
+                    fs.appendFile("log.txt", "Title: " + DataInfo.country);
+                    fs.appendFile("log.txt", "Title: " + DataInfo.Language);
+                    fs.appendFile("log.txt", "Title: " + DataInfo.Plot);
+                    fs.appendFile("log.txt", "Title: " + DataInfo.Actors);
+                        
+
+        if (userCommand == "do-what-it-says") {
+            var fs = require("fs")
+
+        
+            fs.readFile("random.txt", "utf8", function (err, DataInfo) {
+                if (err) {
+                    return console.log("Something not quite right")
                 }
-            });
-
-            break;
-    }
-}
-
-if (userCommand == "do-what-it-says") {
-    var fs = require("fs");
-
-   
-    fs.readFile("random.txt", "utf8", function (error, data) {
-        if (error) {
-            return console.log(error)
-        }
-        var textArr = data.split(",");
-        userCommand = textArr[0];
-        userInput = textArr[1];
-        nextUserInput = userInput.replace(/%20/g, " ");
-        runLiri();
-    })
-}
+                var textArr = DataInfo.split(",");
+                userCommand = textArr[0];
+                userInput = textArr[1];
+                nextUserInput = userInput.replace(/%20/g, " ");
+                Liri();
+            })
+        };
+    };
